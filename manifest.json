@@ -22,13 +22,13 @@
   ],
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "./icon-192-v2.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./icon-512.png",
+      "src": "./icon-512-v2.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -40,7 +40,7 @@
       "short_name": "추가",
       "description": "새 재료 빠르게 추가",
       "url": "./index.html",
-      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "./icon-192-v2.png", "sizes": "192x192" }]
     }
   ]
 }
