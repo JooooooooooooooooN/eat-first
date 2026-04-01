@@ -45,12 +45,31 @@ jobs:
         run: |
           keytool -genkey -v -keystore android.keystore -alias android -keyalg RSA -keysize 2048 -validity 10000 -storepass "password123" -keypass "password123" -dname "CN=EatFirst, OU=EatFirst, O=EatFirst, L=Seoul, S=Seoul, C=KR"
 
+      - name: Install pexpect
+        run: sudo apt-get install -y python3-pexpect
+
       - name: Build Android App Bundle (.aab)
         env:
           KEYSTORE_PASSWORD: "password123"
           KEY_PASSWORD: "password123"
         run: |
-          yes "n" | bubblewrap build
+          python3 -c "
+          import pexpect, sys
+          child = pexpect.spawn('bubblewrap build')
+          child.logfile = sys.stdout.buffer
+          while True:
+              try:
+                  i = child.expect(['(?i)would you like to regenerate', 'versionName for the new App version', pexpect.EOF], timeout=300)
+                  if i == 0:
+                      child.sendline('y')
+                  elif i == 1:
+                      child.sendline('')
+                  elif i == 2:
+                      break
+              except pexpect.TIMEOUT:
+                  print('\nTIMEOUT WAITING FOR PROMPT')
+                  break
+          "
 
       - name: Upload APK and AAB Artifacts
         uses: actions/upload-artifact@v4
