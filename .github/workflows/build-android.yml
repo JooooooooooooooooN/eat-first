@@ -55,11 +55,11 @@ jobs:
         run: |
           python3 -c "
           import pexpect, sys
-          child = pexpect.spawn('bubblewrap build')
-          child.logfile = sys.stdout.buffer
+          child = pexpect.spawn('bubblewrap build', encoding='utf-8')
+          child.logfile = sys.stdout
           while True:
               try:
-                  i = child.expect(['(?i)would you like to regenerate', 'versionName for the new App version', '(?i)Password for the Key Store', '(?i)Password for the Key', pexpect.EOF], timeout=120)
+                  i = child.expect(['(?i)would you like to regenerate', 'versionName for the new App version', '(?i)Password for the Key Store', '(?i)Password for the Key', pexpect.EOF], timeout=300)
                   if i == 0:
                       child.sendline('y')
                   elif i == 1:
@@ -72,7 +72,10 @@ jobs:
                       break
               except pexpect.TIMEOUT:
                   print('\nTIMEOUT WAITING FOR PROMPT')
-                  break
+                  sys.exit(1)
+          
+          child.close()
+          sys.exit(child.exitstatus if child.exitstatus is not None else 1)
           "
 
       - name: Upload APK and AAB Artifacts
@@ -80,5 +83,6 @@ jobs:
         with:
           name: eat-first-android-package
           path: |
-            app-release-bundle.aab
+            **/*.aab
+            **/*.apk
             android.keystore
