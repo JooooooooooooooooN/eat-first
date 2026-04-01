@@ -728,12 +728,12 @@ function calSelectDate(dateStr) {
 /* ============================================
    🔔 알림 기능
    ============================================ */
-function updateNotifyBtn() {
+function updateNotifyBtn(forcedPerm) {
   const btn = document.getElementById('notifyBtn');
   if (!btn) return;
-  const perm = Notification.permission;
+  const perm = forcedPerm || (window.Notification ? Notification.permission : 'denied');
   btn.textContent = perm === 'granted' ? '🔔' : '🔕';
-  btn.title = perm === 'granted' ? '알림 켜짐' : '알림 끄짐 (탭하여 켜기)';
+  btn.title = perm === 'granted' ? '알림 켜짐' : '알림 꺼짐 (탭하여 켜기)';
 }
 
 async function handleNotifyBtn() {
@@ -746,12 +746,12 @@ async function handleNotifyBtn() {
     return;
   }
   const result = await Notification.requestPermission();
-  updateNotifyBtn();
+  updateNotifyBtn(result);
   if (result === 'granted') {
     showToast('🔔 알림이 켜졌어요!');
     checkAndNotify(false);
   } else {
-    showToast('알림 권한이 거부됐어요. 브라우저 설정에서 허용해주세요.', 'warn');
+    showToast('알림 권한이 거부됐어요. 브라우저/시스템 설정에서 허용해주세요.', 'warn');
   }
 }
 
