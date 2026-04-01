@@ -50,8 +50,8 @@ jobs:
 
       - name: Build Android App Bundle (.aab)
         env:
-          KEYSTORE_PASSWORD: "password123"
-          KEY_PASSWORD: "password123"
+          BUBBLEWRAP_KEYSTORE_PASSWORD: "password123"
+          BUBBLEWRAP_KEY_PASSWORD: "password123"
         run: |
           python3 -c "
           import pexpect, sys
@@ -59,12 +59,16 @@ jobs:
           child.logfile = sys.stdout.buffer
           while True:
               try:
-                  i = child.expect(['(?i)would you like to regenerate', 'versionName for the new App version', pexpect.EOF], timeout=300)
+                  i = child.expect(['(?i)would you like to regenerate', 'versionName for the new App version', '(?i)Password for the Key Store', '(?i)Password for the Key', pexpect.EOF], timeout=120)
                   if i == 0:
                       child.sendline('y')
                   elif i == 1:
                       child.sendline('')
                   elif i == 2:
+                      child.sendline('password123')
+                  elif i == 3:
+                      child.sendline('password123')
+                  elif i == 4:
                       break
               except pexpect.TIMEOUT:
                   print('\nTIMEOUT WAITING FOR PROMPT')
