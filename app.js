@@ -31,7 +31,7 @@ const HOME_FILTERS = [
     key: 'soon',
     label: '곧 임박',
     title: '빠르게 챙기면 좋은 재료',
-    helper: '1~2일 안에 먹으면 좋은 재료만 보여줍니다.',
+    helper: '1~3일 안에 먹으면 좋은 재료만 보여줍니다.',
     emptyTitle: '곧 임박한 재료가 없어요',
     emptySub: '지금은 조금 더 여유 있게 사용할 수 있어요',
   },
@@ -39,7 +39,7 @@ const HOME_FILTERS = [
     key: 'safe',
     label: '여유 있음',
     title: '여유 있는 재료',
-    helper: '6일 이상 남은 재료만 보여줍니다.',
+    helper: '4일 이상 남은 재료만 보여줍니다.',
     emptyTitle: '여유 있는 재료가 없어요',
     emptySub: '등록된 재료가 적거나 임박한 재료가 많아요',
   },
@@ -139,33 +139,23 @@ function getItemStatus(item) {
       hint: '가장 먼저 먹는 것이 좋아요.',
     };
   }
-  if (daysLeft <= 2) {
+  if (daysLeft <= 3) {
     return {
       key: 'soon',
       label: '곧 임박',
-      className: 'badge-urgent',
+      className: 'badge-warning',
       daysLeft,
       ddayText: `${daysLeft}일 남음`,
-      hint: '이번 주 안에 먹으면 좋아요.',
-    };
-  }
-  if (daysLeft >= 6) {
-    return {
-      key: 'safe',
-      label: '여유 있음',
-      className: 'badge-good',
-      daysLeft,
-      ddayText: `${daysLeft}일 남음`,
-      hint: '아직은 여유가 있는 재료예요.',
+      hint: '며칠 내로 먹으면 좋아요.',
     };
   }
   return {
-    key: 'care',
-    label: '주의',
-    className: 'badge-warning',
+    key: 'safe',
+    label: '여유 있음',
+    className: 'badge-good',
     daysLeft,
     ddayText: `${daysLeft}일 남음`,
-    hint: '곧 챙겨야 할 수 있어요.',
+    hint: '아직은 여유가 있는 재료예요.',
   };
 }
 
