@@ -50,7 +50,7 @@ jobs:
           KEYSTORE_PASSWORD: "password123"
           KEY_PASSWORD: "password123"
         run: |
-          bubblewrap build
+          yes "n" | bubblewrap build
 
       - name: Upload APK and AAB Artifacts
         uses: actions/upload-artifact@v4
