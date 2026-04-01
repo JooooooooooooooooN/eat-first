@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="먼저먹자" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#10B981" />
+  <meta name="description" content="먼저 먹어야 할 재료를 빠르게 확인하는 우선소비 앱" />
+  <title>먼저먹자! - 우선소비 MVP</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%2310B981'/><text x='50%25' y='58%25' font-size='110' text-anchor='middle' dominant-baseline='middle'>🥗</text></svg>" />
+</head>
+<body>
+<div id="app">
+  <header class="app-header">
+    <div class="header-row">
+      <div class="app-logo">
+        <div class="app-logo-icon">🥗</div>
+        <h1 class="app-title">먼저먹자!</h1>
+      </div>
+      <div class="header-actions">
+        <button class="header-add-btn" id="notifyBtn" aria-label="알림 설정" title="알림 설정">🔔</button>
+        <button class="header-add-btn" id="headerAddBtn" aria-label="재료 추가">＋</button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="search"
+        class="search-input"
+        id="searchInput"
+        placeholder="재료 이름으로 검색..."
+        autocomplete="off"
+      />
+    </div>
+  </header>
+
+  <div class="stats-row" id="statsRow"></div>
+
+  <div class="food-list-wrap" id="foodListWrap"></div>
+</div>
+
+<nav class="bottom-nav" id="bottomNav">
+  <button class="nav-tab active" data-tab="all">
+    <span class="nav-tab-label">전체</span>
+  </button>
+  <button class="nav-tab" data-tab="fridge">
+    <span class="nav-tab-label">냉장</span>
+  </button>
+  <button class="nav-tab" data-tab="freezer">
+    <span class="nav-tab-label">냉동</span>
+  </button>
+  <button class="nav-tab" data-tab="room">
+    <span class="nav-tab-label">실온</span>
+  </button>
+  <button class="nav-tab" data-tab="calendar">
+    <span class="nav-tab-label">달력</span>
+  </button>
+  <button class="nav-tab" data-tab="history">
+    <span class="nav-tab-label">기록</span>
+  </button>
+</nav>
+
+<button class="fab" id="fabBtn" aria-label="재료 추가">＋</button>
+
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="재료 추가">
+  <div class="modal-sheet" id="modalSheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle">🥦 재료 추가</h2>
+      <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
+    </div>
+
+    <form class="modal-form" id="foodForm" novalidate>
+      <input type="hidden" id="editId" />
+
+      <div class="form-group">
+        <label class="form-label" for="foodName">재료명 <span class="required">*</span></label>
+        <input type="text" class="form-input" id="foodName" placeholder="예) 우유, 두부, 버섯" required maxlength="30" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="foodQty">수량</label>
+          <input type="text" class="form-input" id="foodQty" placeholder="예) 1팩, 300g" maxlength="20" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="foodBestBefore">유통기한 <span class="required">*</span></label>
+          <input type="date" class="form-input" id="foodBestBefore" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">보관 위치 <span class="required">*</span></label>
+        <div class="storage-select" id="storageSelect">
+          <button type="button" class="storage-btn active" data-storage="fridge">
+            <span class="storage-btn-icon"><img src="assets/icon_fridge_1774998665567.png" class="app-icon" alt="냉장"></span>
+            <span class="storage-btn-label">냉장</span>
+          </button>
+          <button type="button" class="storage-btn" data-storage="freezer">
+            <span class="storage-btn-icon"><img src="assets/icon_freezer_1774998679890.png" class="app-icon" alt="냉동"></span>
+            <span class="storage-btn-label">냉동</span>
+          </button>
+          <button type="button" class="storage-btn" data-storage="room">
+            <span class="storage-btn-icon"><img src="assets/icon_room_1774998697115.png" class="app-icon" alt="실온"></span>
+            <span class="storage-btn-label">실온</span>
+          </button>
+        </div>
+        <input type="hidden" id="foodStorage" value="fridge" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="foodMemo">메모</label>
+        <textarea class="form-textarea" id="foodMemo" placeholder="예) 개봉 후 바로 먹기" maxlength="100"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">✅ 저장하기</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('[SW] 등록 완료'))
+        .catch((err) => console.warn('[SW] 등록 실패:', err));
+    });
+  }
+</script>
+</body>
+</html>
