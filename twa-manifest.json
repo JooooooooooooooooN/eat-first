@@ -1,0 +1,37 @@
+{
+  "packageId": "io.github.eatfirst.app",
+  "host": "joooooooooooooooon.github.io",
+  "name": "먼저먹자",
+  "launcherName": "먼저먹자",
+  "display": "standalone",
+  "themeColor": "#10B981",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#10B981",
+  "enableNotifications": true,
+  "startUrl": "/eat-first/",
+  "iconUrl": "https://joooooooooooooooon.github.io/eat-first/icon-512-v2.png",
+  "maskableIconUrl": "https://joooooooooooooooon.github.io/eat-first/icon-512-v2.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://joooooooooooooooon.github.io/eat-first/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isTV": false,
+  "orientation": "default",
+  "fingerprints": []
+}

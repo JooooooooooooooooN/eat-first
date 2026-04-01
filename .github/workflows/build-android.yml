@@ -1,0 +1,43 @@
+name: Bubblewrap Android Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli
+
+      - name: Generate Android Keystore
+        run: |
+          keytool -genkey -v -keystore android.keystore -alias android -keyalg RSA -keysize 2048 -validity 10000 -storepass "password123" -keypass "password123" -dname "CN=EatFirst, OU=EatFirst, O=EatFirst, L=Seoul, S=Seoul, C=KR"
+
+      - name: Build Android App Bundle (.aab)
+        run: |
+          yes | bubblewrap update
+          # Pass keystore passwords correctly to the build prompt
+          echo -e "password123\npassword123\n" | bubblewrap build
+
+      - name: Upload APK and AAB Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: eat-first-android-package
+          path: |
+            app-release-bundle.aab
+            android.keystore
