@@ -801,6 +801,20 @@ function bindEvents() {
     });
   });
 
+  const installBtn = document.getElementById('installBtn');
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('앱 설치 수락됨');
+      }
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+  }
+
   document.getElementById('searchInput').addEventListener('input', (event) => {
     state.search = event.target.value.trim();
     render();
@@ -862,3 +876,18 @@ window.calMove          = calMove;
 window.calSelectDate    = calSelectDate;
 
 document.addEventListener('DOMContentLoaded', init);
+
+// PWA 설치 제어
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const installBtn = document.getElementById('installBtn');
+  if (installBtn) installBtn.style.display = 'flex';
+});
+
+window.addEventListener('appinstalled', () => {
+  const installBtn = document.getElementById('installBtn');
+  if (installBtn) installBtn.style.display = 'none';
+  deferredPrompt = null;
+});

@@ -3,10 +3,11 @@
    오프라인 지원 + 캐시 전략
    ============================================ */
 
-const CACHE_NAME = 'meonjeomeokja-v1';
+const CACHE_NAME = 'meonjeomeokja-v2';
 const ASSETS = [
   './',
   './index.html',
+  './guide.html',
   './style.css',
   './app.js',
   './manifest.json',

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#10B981" />
+  <title>사용방법 - 먼저먹자!</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0;
+      color: #0F172A;
+      line-height: 1.6;
+      background: #F0FDF9;
+      -webkit-font-smoothing: antialiased;
+    }
+    .header {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      padding: 16px 20px;
+      padding-top: calc(16px + env(safe-area-inset-top));
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(16,185,129,0.2);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 12px;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(4px);
+    }
+    .back-btn:active {
+      transform: scale(0.92);
+      background: rgba(255,255,255,0.3);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .content {
+      padding: 0 16px 40px;
+    }
+    .section {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      margin-bottom: 16px;
+      border: 1.5px solid #E2E8F0;
+    }
+    .section h2 {
+      font-size: 17px;
+      color: #0F172A;
+      margin-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section p {
+      font-size: 14px;
+      color: #475569;
+      margin: 0 0 10px;
+      line-height: 1.6;
+    }
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+    .badge-expired { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+    .badge-urgent { background: #FFF7ED; color: #EA580C; border: 1px solid #FED7AA; }
+    .badge-fresh { background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0; }
+    .emoji-icon { font-size: 20px; }
+    .highlight {
+      font-weight: 700;
+      color: #10B981;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="index.html" class="back-btn" aria-label="뒤로 가기">⬅️</a>
+    <h1>사용방법 가이드</h1>
+  </div>
+  
+  <div class="content">
+    <div class="section">
+      <h2><span class="emoji-icon">🥦</span> 재료 등록하기</h2>
+      <p>상단의 <strong style="font-size:18px;">＋</strong> 버튼을 눌러 새로운 식재료를 등록해보세요!</p>
+      <p>이름, 유통기한, 보관 위치(냉장/냉동/실온)를 선택하여 쉽고 빠르게 저장할 수 있습니다. 수량과 간단한 메모도 등록이 가능합니다.</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="emoji-icon">🚥</span> 색상으로 상태 확인하기</h2>
+      <p>먼저먹자! 에서는 남은 기간에 따라 직관적인 색상으로 상태를 알려줍니다.</p>
+      <div>
+        <span class="badge badge-expired">지남 (빨간색)</span>
+      </div>
+      <p>유통기한이 지난 항목입니다. 상태를 확인하고 버려야 할 수도 있어요.</p>
+      <div>
+        <span class="badge badge-urgent">D-1 등 (주황색)</span>
+      </div>
+      <p>유통기한이 얼마 남지 않았어요! 서둘러 <strong>우선소비</strong> 하세요.</p>
+      <p>상단의 <span class="highlight">긴급 배너</span>에서 상태가 급박한 항목들을 한 눈에 모아볼 수도 있습니다.</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="emoji-icon">✅</span> 먹은 기록 남기기 (기록 탭)</h2>
+      <p>재료 카드에서 <strong>"먹기"</strong> 버튼을 누르면 해당 재료는 냉장고에서 사라지지 않고 <strong>기록</strong> 탭으로 이동합니다.</p>
+      <p>과거에 언제, 무엇을 소비했는지 쉽게 기억하고 식습관을 관리해보세요. 잘못 눌렀다면 기록 탭에서 영구 삭제할 수도 있습니다.</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="emoji-icon">🔍</span> 실시간 검색</h2>
+      <p>상단 검색창에 단어를 입력하면 냉장, 냉동, 실온에 흩어진 재료 중 내가 원하는 재료를 즉시 찾아볼 수 있습니다.</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="emoji-icon">📱</span> 홈 화면에 추가하기</h2>
+      <p>브라우저 메뉴에서 <strong>"홈 화면에 추가"</strong> 또는 <strong>"앱 설치"</strong>를 선택하면 스마트폰 홈 화면에 아이콘이 생성됩니다.<br>일반 앱처럼 빠르고 편리하게 먼저먹자! 를 이용할 수 있습니다.</p>
+    </div>
+  </div>
+</body>
+</html>
